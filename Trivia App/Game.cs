@@ -16,15 +16,15 @@ namespace Trivia_App
         public int CurrentScore;
 
         public Game()
-        {            
-            TotalQuestions = 10;
+        {
+            TotalQuestions = 5;
             CurrentQuestion = 0;
             CurrentScore = 0;
         }
 
         public async Task GetQuestions()
         {
-            _questions= new Result[TotalQuestions];
+            _questions = new Result[TotalQuestions];
             CurrentQuestion = 0;
             CurrentScore = 0;
 
@@ -32,7 +32,7 @@ namespace Trivia_App
             var client = new HttpClient();
             var myJsonResponse = await client.GetFromJsonAsync<Root>(uri);
 
-            if (myJsonResponse !=  null && myJsonResponse.results.Any())
+            if (myJsonResponse != null && myJsonResponse.results.Any())
             {
                 _questions = myJsonResponse.results.ToArray();
             }
@@ -41,7 +41,7 @@ namespace Trivia_App
         public Result GetCurrentQuestion()
         {
             CurrentQuestion++;
-            return _questions[CurrentQuestion];
+            return _questions[CurrentQuestion - 1];
         }
     }
 }
